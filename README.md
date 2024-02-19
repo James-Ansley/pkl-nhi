@@ -39,7 +39,7 @@ prefix or use the `isReserved`/`isUnreserved` functions:
 ```python
 import "@nhi/nhi.pkl"
 
-myNhi1: String(nhi.Reserved(this) && nhi.isValid(this)) = "ZAC5361" // works
+myNhi1: String(nhi.isReserved(this) && nhi.isValid(this)) = "ZAC5361" // works
 myNhi2: String(nhi.isUnreserved(this) && nhi.isValid(this)) = "ZAC5361"  // fails
 ```
 
