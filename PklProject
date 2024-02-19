@@ -1,8 +1,10 @@
 amends "pkl:Project"
 
+local repo = "github.com/James-Ansley/pkl-nhi"
+
 package {
   name = "nhi"
-  baseUri = "package://github.com/James-Ansley/pkl-nhi/"
+  baseUri = "package://pkg.pkl-lang.org/\(repo)"
   version = "0.0.1"
-  packageZipUrl = "https://github.com/James-Ansley/pkl-nhi/releases/download/v\(version)/@\(version).zip"
+  packageZipUrl = "https://pkg.pkl-lang.org/\(repo)/@\(version).zip"
 }

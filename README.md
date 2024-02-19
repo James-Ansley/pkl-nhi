@@ -11,7 +11,7 @@ Add the following to you PklProject:
 
 ```
 dependencies {
-  ["nhi"] { uri = "package://github.com/James-Ansley/pkl-nhi/releases/download/v0.0.1/@0.0.1" }
+  ["nhi"] { uri = "package://pkg.pkl-lang.org/github.com/James-Ansley/pkl-nhi@0.0.1" }
 }
 ```
 
