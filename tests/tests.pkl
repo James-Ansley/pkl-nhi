@@ -1,0 +1,133 @@
+module nhi.tests
+
+amends "pkl:test"
+
+import "../nhi.pkl"
+
+facts {
+  ["isValid recognises valid old format nhi numbers"] {
+    nhi.isValid("JBX3656")
+    nhi.isValid("ZZZ0016")
+    nhi.isValid("ZZZ0024")
+    nhi.isValid("ZAA0067")
+    nhi.isValid("ZAA0075")
+    nhi.isValid("ZAA0083")
+    nhi.isValid("ZAA0091")
+    nhi.isValid("ZAA0105")
+    nhi.isValid("ZAA0113")
+    nhi.isValid("ZAA0121")
+    nhi.isValid("ZAA0130")
+    nhi.isValid("ZAA0148")
+    nhi.isValid("ZAA0156")
+    nhi.isValid("ZAC5361")
+    nhi.isValid("ABC1235")
+  }
+
+  ["isValid rejects invalid old format nhi numbers"] {
+    !nhi.isValid("ZZZ0044")
+    !nhi.isValid("ZZZ0017")
+    !nhi.isValid("DAB8233")
+    IntSeq(1, 9)
+      .toList()
+      .filter((it) -> it != 6)
+      .every((it) -> !nhi.isValid("JBX365" + it.toString()))
+  }
+
+  ["no digit can be added to an old format nhi with a checksum of 0 to make it valid"] {
+    IntSeq(1, 9)
+      .toList()
+      .map((it) -> "ZZZ004" + it.toString())
+      .every((it) -> !nhi.isValid(it))
+  }
+
+  ["isValid recognises valid new format nhi numbers"] {
+    nhi.isValid("ZBN77VL")
+    nhi.isValid("ZZZ00AC")
+    nhi.isValid("ZDR69YX")
+    nhi.isValid("ZSC21TN")
+    nhi.isValid("ZZB30NH")
+    nhi.isValid("ZYZ81ZV")
+    nhi.isValid("ZVB97XQ")
+    nhi.isValid("ZRA29VA")
+    nhi.isValid("ZYX61YS")
+    nhi.isValid("ABC12AY")
+    nhi.isValid("XYZ12AN")
+  }
+
+  ["isValid rejects invalid new format nhi numbers"] {
+    !nhi.isValid("ZZZ00AA")
+    !nhi.isValid("ZZZ00AY")
+    !nhi.isValid("ZVU27KY")
+    !nhi.isValid("ZVU27KA")
+    "ABCDEFGHJKLMNPQRSTUWXYZ"
+      .chars
+      .map((c) -> "ZHW58C" + c)
+      .every((it) -> !nhi.isValid(it))
+  }
+
+  ["isValid rejects random strings"] {
+    !nhi.isValid("!@#$%&*")
+    !nhi.isValid("AAANNNC")
+    !nhi.isValid("AAANNAC")
+    !nhi.isValid("ZVU27K")
+    !nhi.isValid("JBX365")
+    !nhi.isValid("")
+  }
+
+  ["is nhi is case insensitive"] {
+    nhi.isValid("jbx3656")
+    nhi.isValid("zzz0016")
+    nhi.isValid("zzz0024")
+    nhi.isValid("zaa0067")
+    nhi.isValid("zaa0075")
+    nhi.isValid("zaa0083")
+    nhi.isValid("zaa0091")
+    nhi.isValid("zaa0105")
+    nhi.isValid("zaa0113")
+    nhi.isValid("zaa0121")
+    nhi.isValid("zaa0130")
+    nhi.isValid("zaa0148")
+    nhi.isValid("zaa0156")
+    nhi.isValid("zac5361")
+    nhi.isValid("abc1235")
+    nhi.isValid("zbn77vl")
+    nhi.isValid("zzz00ac")
+    nhi.isValid("zdr69yx")
+    nhi.isValid("zsc21tn")
+    nhi.isValid("zzb30nh")
+    nhi.isValid("zyz81zv")
+    nhi.isValid("zvb97xq")
+    nhi.isValid("zra29va")
+    nhi.isValid("zyx61ys")
+    nhi.isValid("abc12ay")
+    nhi.isValid("xyz12an")
+
+    !nhi.isValid("zzz0044")
+    !nhi.isValid("zzz0017")
+    !nhi.isValid("dab8233")
+    !nhi.isValid("zzz00aa")
+    !nhi.isValid("zzz00ay")
+    !nhi.isValid("zvu27ky")
+    !nhi.isValid("zvu27ka")
+  }
+
+  ["nhi numbers identify values reserved for testing"] {
+    nhi.isReserved("ZAA0105")
+    nhi.isReserved("ZAA0113")
+    nhi.isReserved("ZBN77VL")
+    nhi.isReserved("ZZZ00AC")
+    !nhi.isUnreserved("ZAA0105")
+    !nhi.isUnreserved("ZAA0113")
+    !nhi.isUnreserved("ZBN77VL")
+    !nhi.isUnreserved("ZZZ00AC")
+
+    nhi.isUnreserved("JBX3656")
+    nhi.isUnreserved("ABC1235")
+    nhi.isUnreserved("ABC12AY")
+    nhi.isUnreserved("XYZ12AN")
+    !nhi.isReserved("JBX3656")
+    !nhi.isReserved("ABC1235")
+    !nhi.isReserved("ABC12AY")
+    !nhi.isReserved("XYZ12AN")
+  }
+}

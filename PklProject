@@ -1,0 +1,8 @@
+amends "pkl:Project"
+
+package {
+  name = "nhi"
+  baseUri = "package://github.com/James-Ansley/pkl-nhi/"
+  version = "0.0.1"
+  packageZipUrl = "https://github.com/James-Ansley/pkl-nhi/archive/refs/tags/v\(version).zip"
+}
