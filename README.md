@@ -12,18 +12,25 @@ Add the following to your PklProject:
 ```pkl
 dependencies {
   ["nhi"] { 
-    uri = "package://pkg.pkl-lang.org/github.com/James-Ansley/pkl-nhi/nhi@0.0.1"
+    uri = "package://pkg.pkl-lang.org/github.com/James-Ansley/pkl-nhi/nhi@0.0.2"
   }
 }
 ```
 
 ## Usage
 
+Use the `nhi.isValid` function or the `nhi.Nhi` type:
+
 ```pkl
 import "@nhi/nhi.pkl"
 
+typealias Nhi = nhi.Nhi  // re-aliasing to prevent the repetition of nhi
+
 myValidNhi: String(nhi.isValid(this)) = "ZAC5361"  // works
 myInvalidNhi: String(nhi.isValid(this)) = "ZZZ0044"  // fails
+
+myOtherValidNhi: Nhi = "ZAC5361" // works
+myOtherInvalidNhi: Nhi = "ZZZ0044"  // fails
 ```
 
 Checks are case-insensitive.
@@ -36,13 +43,15 @@ standard.
 
 NHI numbers that begin with `Z` are reserved for testing.
 If you wish to exclude these values, you will need to manually check for a `Z`
-prefix or use the `isReserved`/`isUnreserved` functions:
+prefix:
 
 ```pkl
 import "@nhi/nhi.pkl"
 
-myNhi1: String(nhi.isReserved(this) && nhi.isValid(this)) = "ZAC5361" // works
-myNhi2: String(nhi.isUnreserved(this) && nhi.isValid(this)) = "ZAC5361"  // fails
+typealias Nhi = nhi.Nhi
+
+myNhi1: Nhi(!this.toUpperCase().startsWith("Z")) = "ZAC5361" // works
+myNhi2: Nhi(!this.toUpperCase().startsWith("Z")) = "ZAC5361"  // fails
 ```
 
 ***Note:*** This check does not mean that the NHI number has been _assigned_ to

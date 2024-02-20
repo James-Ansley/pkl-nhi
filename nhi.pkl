@@ -43,30 +43,32 @@
 @ModuleInfo { minPklVersion = "0.25.1" }
 module nhi
 
-
-@Unlisted oldNhiFormatRegex = Regex(#"^[A-HJ-NP-Z]{3}\d{4}$"#)
-@Unlisted newNhiFormatRegex = Regex(#"^[A-HJ-NP-Z]{3}\d{2}[A-HJ-NP-Z]{2}$"#)
-
-@Unlisted i_code = "I".codePoints[0]
-@Unlisted o_code = "O".codePoints[0]
-@Unlisted at_code = "@".codePoints[0]
+/// A TypeAlias to check whather a String satisfies the New Zealand
+/// Ministry of Health NHI specification defined by the
+/// [HISO 10046:2023](https://www.tewhatuora.govt.nz/publications/hiso-100462023-consumer-health-identity-standard/)
+/// standard.
+typealias Nhi = String(import("./nhi.pkl").isValid(this))
 
 
-@Unlisted
-function charCode(char: Char): Int =
+local oldNhiFormatRegex = Regex(#"^[A-HJ-NP-Z]{3}\d{4}$"#)
+local newNhiFormatRegex = Regex(#"^[A-HJ-NP-Z]{3}\d{2}[A-HJ-NP-Z]{2}$"#)
+local i_code = "I".codePoints[0]
+local o_code = "O".codePoints[0]
+local at_code = "@".codePoints[0]
+
+
+local function charCode(char: Char): Int =
   let (code = char.codePoints[0])
     char.toIntOrNull()
     ?? code - at_code - (if (i_code < code) 1 else 0) - (if (o_code < code) 1 else 0)
 
 
-@Unlisted
-function checksum(chars: List<Char>): Int =
+local function checksum(chars: List<Char>): Int =
   chars
     .dropLast(1)
     .map((c) -> charCode(c))
     .mapIndexed((i, c) -> c * (7 - i))
     .reduce((e1, e2) -> e1 + e2)
-
 
 
 /// Checks a string against the New Zealand Ministry of Health NHI
@@ -102,11 +104,3 @@ function isValid(nhi: String): Boolean =
 
     else
       false
-
-
-function isReserved(nhiString: String): Boolean =
-  nhiString.toUpperCase().startsWith("Z")
-
-
-function isUnreserved(nhiString: String): Boolean =
-  !nhiString.toUpperCase().startsWith("Z")

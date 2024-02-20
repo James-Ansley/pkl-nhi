@@ -4,6 +4,8 @@ amends "pkl:test"
 
 import "../nhi.pkl"
 
+local typealias Nhi = nhi.Nhi
+
 facts {
   ["isValid recognises valid old format nhi numbers"] {
     nhi.isValid("JBX3656")
@@ -111,23 +113,42 @@ facts {
     !nhi.isValid("zvu27ka")
   }
 
-  ["nhi numbers identify values reserved for testing"] {
-    nhi.isReserved("ZAA0105")
-    nhi.isReserved("ZAA0113")
-    nhi.isReserved("ZBN77VL")
-    nhi.isReserved("ZZZ00AC")
-    !nhi.isUnreserved("ZAA0105")
-    !nhi.isUnreserved("ZAA0113")
-    !nhi.isUnreserved("ZBN77VL")
-    !nhi.isUnreserved("ZZZ00AC")
+  ["Values can be recognised by the Nhi type"] {
+    "JBX3656" is Nhi
+    "ZZZ0016" is Nhi
+    "ZZZ0024" is Nhi
+    "ZAA0067" is Nhi
+    "ZAA0075" is Nhi
+    "ZAA0083" is Nhi
+    "ZAA0091" is Nhi
+    "ZAA0105" is Nhi
+    "ZAA0113" is Nhi
+    "ZAA0121" is Nhi
+    "ZAA0130" is Nhi
+    "ZAA0148" is Nhi
+    "ZAA0156" is Nhi
+    "ZAC5361" is Nhi
+    "ABC1235" is Nhi
 
-    nhi.isUnreserved("JBX3656")
-    nhi.isUnreserved("ABC1235")
-    nhi.isUnreserved("ABC12AY")
-    nhi.isUnreserved("XYZ12AN")
-    !nhi.isReserved("JBX3656")
-    !nhi.isReserved("ABC1235")
-    !nhi.isReserved("ABC12AY")
-    !nhi.isReserved("XYZ12AN")
+    "ZBN77VL" is Nhi
+    "ZZZ00AC" is Nhi
+    "ZDR69YX" is Nhi
+    "ZSC21TN" is Nhi
+    "ZZB30NH" is Nhi
+    "ZYZ81ZV" is Nhi
+    "ZVB97XQ" is Nhi
+    "ZRA29VA" is Nhi
+    "ZYX61YS" is Nhi
+    "ABC12AY" is Nhi
+    "XYZ12AN" is Nhi
+
+    !("ZZZ0044" is Nhi)
+    !("ZZZ0017" is Nhi)
+    !("DAB8233" is Nhi)
+
+    !("ZZZ00AA" is Nhi)
+    !("ZZZ00AY" is Nhi)
+    !("ZVU27KY" is Nhi)
+    !("ZVU27KA" is Nhi)
   }
 }
