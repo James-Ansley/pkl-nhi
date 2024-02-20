@@ -9,15 +9,17 @@ Supports the old and new NHI number formats specified in
 
 Add the following to your PklProject:
 
-```
+```pkl
 dependencies {
-  ["nhi"] { uri = "package://pkg.pkl-lang.org/github.com/James-Ansley/pkl-nhi/nhi@0.0.1" }
+  ["nhi"] { 
+    uri = "package://pkg.pkl-lang.org/github.com/James-Ansley/pkl-nhi/nhi@0.0.1"
+  }
 }
 ```
 
 ## Usage
 
-```python
+```pkl
 import "@nhi/nhi.pkl"
 
 myValidNhi: String(nhi.isValid(this)) = "ZAC5361"  // works
@@ -36,7 +38,7 @@ NHI numbers that begin with `Z` are reserved for testing.
 If you wish to exclude these values, you will need to manually check for a `Z`
 prefix or use the `isReserved`/`isUnreserved` functions:
 
-```python
+```pkl
 import "@nhi/nhi.pkl"
 
 myNhi1: String(nhi.isReserved(this) && nhi.isValid(this)) = "ZAC5361" // works
