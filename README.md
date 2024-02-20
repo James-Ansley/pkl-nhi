@@ -54,6 +54,19 @@ myNhi1: Nhi(!startsWith("Z"), !startsWith("z")) = "ABC12AY" // works
 myNhi2: Nhi(!startsWith("Z"), !startsWith("z")) = "ZAC5361"  // fails
 ```
 
+Alternatively:
+
+```pkl
+import "@nhi/nhi.pkl"
+
+typealias Nhi = nhi.Nhi(!startsWith("Z"), !startsWith("z"))
+// Or even:
+// typealias Nhi = String(nhi.isValid(this), !startsWith("Z"), !startsWith("z"))
+
+myNhi1: Nhi = "ABC12AY" // works
+myNhi2: Nhi = "ZAC5361"  // fails
+```
+
 ***Note:*** This check does not mean that the NHI number has been _assigned_ to
 a person, it just means that the NHI value is not reserved for testing.
 
