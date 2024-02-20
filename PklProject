@@ -4,7 +4,10 @@ local repo = "github.com/James-Ansley/pkl-nhi"
 
 package {
   name = "nhi"
-  baseUri = "package://pkg.pkl-lang.org/\(repo)/pkl-nhi"
+  baseUri = "package://pkg.pkl-lang.org/\(repo)/nhi"
   version = "0.0.1"
-  packageZipUrl = "https://\(repo)/releases/download/pkl-nhi@\(version)/pkl-nhi@\(version).zip"
+  packageZipUrl = "https://\(repo)/releases/download/nhi@\(version)/nhi@\(version).zip"
 }
+
+
+// pkg.pkl-lang.org/github.com/James-Ansley/pkl-nhi/nhi

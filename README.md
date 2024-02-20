@@ -7,11 +7,11 @@ Supports the old and new NHI number formats specified in
 
 ## Install
 
-Add the following to you PklProject:
+Add the following to your PklProject:
 
 ```
 dependencies {
-  ["nhi"] { uri = "package://pkg.pkl-lang.org/github.com/James-Ansley/pkl-nhi/pkl-nhi@0.0.1" }
+  ["nhi"] { uri = "package://pkg.pkl-lang.org/github.com/James-Ansley/pkl-nhi/nhi@0.0.1" }
 }
 ```
 

@@ -91,16 +91,14 @@ function checksum(chars: List<Char>): Int =
 /// myValidNhi: String(nhi.isNhi(this)) = "ZAC5361"  // works
 /// myInvalidNhi: String(nhi.isNhi(this)) = "ZZZ0044"  // fails
 /// ```
-function isValid(nhiString: String): Boolean =
-  let (nhiString = nhiString.toUpperCase())
-    if (nhiString.matches(oldNhiFormatRegex))
-      let (checksum = checksum(nhiString.chars) % 11)
-        checksum != 0
-        && (11 - checksum) % 10 == charCode(nhiString.takeLast(1)[0])
+function isValid(nhi: String): Boolean =
+  let (nhi = nhi.toUpperCase())
+    if (nhi.matches(oldNhiFormatRegex))
+      let (checksum = checksum(nhi.chars) % 11)
+        checksum != 0 && (11 - checksum) % 10 == charCode(nhi.takeLast(1)[0])
 
-    else if (nhiString.matches(newNhiFormatRegex))
-      23 - checksum(nhiString.chars) % 23
-      == charCode(nhiString.takeLast(1)[0])
+    else if (nhi.matches(newNhiFormatRegex))
+      23 - checksum(nhi.chars) % 23 == charCode(nhi.takeLast(1)[0])
 
     else
       false
