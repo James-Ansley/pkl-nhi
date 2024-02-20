@@ -50,8 +50,8 @@ import "@nhi/nhi.pkl"
 
 typealias Nhi = nhi.Nhi
 
-myNhi1: Nhi(!this.toUpperCase().startsWith("Z")) = "ZAC5361" // works
-myNhi2: Nhi(!this.toUpperCase().startsWith("Z")) = "ZAC5361"  // fails
+myNhi1: Nhi(!startsWith("Z"), !startsWith("z")) = "ABC12AY" // works
+myNhi2: Nhi(!startsWith("Z"), !startsWith("z")) = "ZAC5361"  // fails
 ```
 
 ***Note:*** This check does not mean that the NHI number has been _assigned_ to
