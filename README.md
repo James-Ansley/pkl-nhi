@@ -19,15 +19,12 @@ dependencies {
 
 ## Usage
 
-Use the `nhi.isValid` function or the `nhi.Nhi` type:
+Use the `nhi.isValid` function:
 
 ```pkl
 import "@nhi/nhi.pkl"
 
-typealias Nhi = nhi.Nhi  // re-aliasing to prevent the repetition of nhi
-
-myValidNhi: String(nhi.isValid(this)) = "ZAC5361"  // works
-myInvalidNhi: String(nhi.isValid(this)) = "ZZZ0044"  // fails
+typealias Nhi = String(nhi.isValid(this))
 
 myOtherValidNhi: Nhi = "ZAC5361" // works
 myOtherInvalidNhi: Nhi = "ZZZ0044"  // fails
@@ -48,20 +45,7 @@ prefix:
 ```pkl
 import "@nhi/nhi.pkl"
 
-typealias Nhi = nhi.Nhi
-
-myNhi1: Nhi(!startsWith("Z"), !startsWith("z")) = "ABC12AY" // works
-myNhi2: Nhi(!startsWith("Z"), !startsWith("z")) = "ZAC5361"  // fails
-```
-
-Alternatively:
-
-```pkl
-import "@nhi/nhi.pkl"
-
-typealias Nhi = nhi.Nhi(!startsWith("Z"), !startsWith("z"))
-// Or even:
-// typealias Nhi = String(nhi.isValid(this), !startsWith("Z"), !startsWith("z"))
+typealias Nhi = String(nhi.isValid(this), !startsWith("Z"), !startsWith("z"))
 
 myNhi1: Nhi = "ABC12AY" // works
 myNhi2: Nhi = "ZAC5361"  // fails

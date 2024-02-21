@@ -9,8 +9,10 @@
 /// ```pkl
 /// import "nhi.pkl"
 ///
-/// myValidNhi: String(nhi.isValid(this)) = "ZAC5361"  // works
-/// myInvalidNhi: String(nhi.isValid(this)) = "ZZZ0044"  // fails
+/// typealias Nhi = String(nhi.isValid(this))
+///
+/// myOtherValidNhi: Nhi = "ZAC5361" // works
+/// myOtherInvalidNhi: Nhi = "ZZZ0044"  // fails
 /// ```
 ///
 /// Checks are case-insensitive.
@@ -22,15 +24,16 @@
 /// ### Excluding Testcases
 ///
 /// NHI numbers that begin with `Z` are reserved for testing.
-/// If you wish to exclude these values using [isValid], you will need to manually check for a `Z`
-/// prefix.
-/// This can be done manually or with the [nhi.isReserved] and [nhi.isUnreserved] functions:
+/// If you wish to exclude these values, you will need to manually check for a `Z`
+/// prefix:
 ///
 /// ```pkl
 /// import "nhi.pkl"
 ///
-/// myNhi1: String(nhi.Reserved(this) && nhi.isValid(this)) = "ZAC5361" // works
-/// myNhi2: String(nhi.isUnreserved(this) && nhi.isValid(this)) = "ZAC5361"  // fails
+/// typealias Nhi = String(nhi.isValid(this), !startsWith("Z"), !startsWith("z"))
+///
+/// myNhi1: Nhi = "ABC12AY" // works
+/// myNhi2: Nhi = "ZAC5361"  // fails
 /// ```
 ///
 /// ***Note:*** This check does not mean that the NHI number has been _assigned_ to
@@ -42,13 +45,6 @@
 /// - <https://www.tewhatuora.govt.nz/our-health-system/digital-health/health-identity/national-health-index/information-for-health-it-vendors-and-developers>
 @ModuleInfo { minPklVersion = "0.25.1" }
 module nhi
-
-/// A TypeAlias to check whather a String satisfies the New Zealand
-/// Ministry of Health NHI specification defined by the
-/// [HISO 10046:2023](https://www.tewhatuora.govt.nz/publications/hiso-100462023-consumer-health-identity-standard/)
-/// standard.
-typealias Nhi = String(import("./nhi.pkl").isValid(this))
-
 
 local oldNhiFormatRegex = Regex(#"^[A-HJ-NP-Z]{3}\d{4}$"#)
 local newNhiFormatRegex = Regex(#"^[A-HJ-NP-Z]{3}\d{2}[A-HJ-NP-Z]{2}$"#)
@@ -90,8 +86,10 @@ local function checksum(chars: List<Char>): Int =
 /// ```pkl
 /// import "nhi.pkl"
 ///
-/// myValidNhi: String(nhi.isNhi(this)) = "ZAC5361"  // works
-/// myInvalidNhi: String(nhi.isNhi(this)) = "ZZZ0044"  // fails
+/// typealias Nhi = String(nhi.isValid(this))
+///
+/// myOtherValidNhi: Nhi = "ZAC5361" // works
+/// myOtherInvalidNhi: Nhi = "ZZZ0044"  // fails
 /// ```
 function isValid(nhi: String): Boolean =
   let (nhi = nhi.toUpperCase())
